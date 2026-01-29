@@ -1,6 +1,8 @@
 import { NavLink } from "react-router";
 import type { Route } from "./+types/home";
 
+import "~/styles/home.css";
+
 export function meta({}: Route.MetaArgs) {
   return [
     { title: "Elliot RSVP" },
@@ -11,11 +13,14 @@ export function meta({}: Route.MetaArgs) {
 export default function Home() {
   return (
     <main>
-      <img src='img/balloons.png' alt="Balloons" className="header" />
+      <img src='img/balloons.png' alt="Balloons" />
       <div className="container mx-auto pb-8 px-4">
-        <h1 className="text-4xl font-bold mb-4 text-center">Welcome To</h1>
-        <h2 className="text-4xl font-bold mb-4 text-center">은성이</h2>
-        <h2 className="text-4xl font-bold mb-12 text-center">돌잔치</h2>
+        {/* version 1 English */}
+        {/* <h2 className="text-2xl md:text-3xl lg:text-4xl mt-12 mb-4 text-center welcome-text text-cursive">Join us to celebrate</h2>
+        <h2 className="text-3xl md:text-4xl lg:text-6xl mb-12 text-center text-playful">Elliot's First Birthday Party</h2> */}
+        {/* verison 2 Korean */}
+        <h2 className="text-3xl md:text-4xl lg:text-6xl mt-12 mb-4 text-center text-playful title">은성이의 돌잔치에 여러분을 초대합니다</h2>
+        <h2 className="text-2xl md:text-3xl lg:text-4xl mb-12 text-center text-formal subtitle">함께해 주셔서 은성이의 첫 생일을 축복해 주세요</h2>
         
         <div className="frame-container mx-auto mb-12">
           <div className="frame-border"></div>
@@ -23,18 +28,18 @@ export default function Home() {
         </div>
 
         <div className="info text-center mb-12">
-          <p className="mb-2"><b>일시:</b> 2026.05.02 12:00 PM - 1:30 PM</p>
+          <p className="mb-2 text-playful text-xl lg:text-2xl"><b>일시:</b> 2026.05.02 12:00 PM - 1:30 PM</p>
           <div className="flex justify-center">
             <div className="text-left">
-              <p className="mb-2"><b>장소:</b> dPlace Steak & Pasta</p>
-              <p className="mb-1" style={{ marginLeft: '2.5rem' }}>1901 W Malvern Ave.</p>
-              <p><span style={{ marginLeft: '2.5rem', display: 'inline-block' }}>Fullerton, CA 92833</span></p>
+              <p className="mb-2 text-playful text-xl lg:text-2xl"><b>장소:</b> dPlace Steak & Pasta</p>
+              <p className="mb-1 text-playful text-xl lg:text-2xl ml-10 lg:ml-14">1901 W Malvern Ave.</p>
+              <p className="mb-1 text-playful text-xl lg:text-2xl ml-10 lg:ml-14">Fullerton, CA 92833</p>
             </div>
           </div>
         </div>
 
         <div className="mt-10 text-center">
-          <NavLink to="/rsvp" className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition">
+          <NavLink to="/rsvp" className="bg-cyan-500 text-white px-12 py-3 rounded-3xl hover:bg-indigo-600 transition duration-300 text-playful text-2xl lg:text-3xl">
             RSVP
           </NavLink>
           <p className="mt-5 text-sm text-gray-600">
@@ -46,7 +51,7 @@ export default function Home() {
         </div>
       </div>
       
-      <img src='img/balloons.png' alt="Balloons" className="footer"/>
+      <img src='img/balloons_footer.png' alt="Balloons" />
     </main>
   );
 }
