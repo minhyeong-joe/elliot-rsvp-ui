@@ -1,25 +1,17 @@
 import { NavLink } from "react-router";
-import type { Route } from "./+types/home";
 
 import "~/styles/home.css";
-
-export function meta({ }: Route.MetaArgs) {
-  return [
-    { title: "Elliot RSVP" },
-    { name: "description", content: "RSVP for Elliot's First Birthday" },
-  ];
-}
 
 export default function Home() {
   return (
     <main>
       <img src='img/balloons.png' alt="Balloons" />
-      <div className="container mx-auto pb-8 px-4">
+      <div className="container mx-auto py-8 px-4">
         {/* version 1 English */}
         {/* <h2 className="text-2xl md:text-3xl lg:text-4xl mt-12 mb-4 text-center welcome-text text-cursive">Join us to celebrate</h2>
         <h2 className="text-3xl md:text-4xl lg:text-6xl mb-12 text-center text-playful">Elliot's First Birthday Party</h2> */}
         {/* verison 2 Korean */}
-        <h2 className="text-3xl md:text-4xl lg:text-6xl mt-12 mb-4 text-center text-playful title">은성이의 돌잔치에 여러분을 초대합니다</h2>
+        <h2 className="text-3xl md:text-4xl lg:text-6xl mt-4 mb-4 text-center text-playful title">은성이의 돌잔치에 여러분을 초대합니다</h2>
         <h2 className="text-2xl md:text-3xl lg:text-4xl mb-12 text-center text-formal subtitle">함께해 주셔서 은성이의 첫 생일을 축복해 주세요</h2>
 
         <div className="frame-container mx-auto mb-12">

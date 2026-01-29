@@ -7,8 +7,6 @@
 
 .title {
     letter-spacing: 0.3rem;
-    word-break: keep-all;
-    overflow-wrap: break-word;
     color: #704230;
 }
 

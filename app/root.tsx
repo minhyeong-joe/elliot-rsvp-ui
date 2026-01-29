@@ -11,6 +11,13 @@ import type { Route } from "./+types/root";
 import AuthGate from "./components/AuthGate";
 import "./app.css";
 
+export function meta({ }: Route.MetaArgs) {
+  return [
+    { title: "Elliot RSVP" },
+    { name: "description", content: "RSVP for Elliot's First Birthday" },
+  ];
+}
+
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
   {
