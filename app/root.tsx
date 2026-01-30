@@ -21,7 +21,7 @@ export function meta({ }: Route.MetaArgs) {
     // Open Graph tags for social sharing
     { property: "og:title", content: "은성이 돌잔치 RSVP" },
     { property: "og:description", content: "은성이의 돌잔치에 여러분을 초대합니다" },
-    { property: "og:image", content: `${BASE_URL}/img/thumbnail.png` },
+    { property: "og:image", content: `${BASE_URL}img/thumbnail.png` },
     { property: "og:url", content: `${BASE_URL}` },
     { property: "og:type", content: "website" }
   ];
