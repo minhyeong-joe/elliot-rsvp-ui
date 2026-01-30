@@ -10,6 +10,7 @@ import {
 import type { Route } from "./+types/root";
 import AuthGate from "./components/AuthGate";
 import "./app.css";
+import { p } from "framer-motion/client";
 
 export function meta({ }: Route.MetaArgs) {
   return [
@@ -18,7 +19,8 @@ export function meta({ }: Route.MetaArgs) {
     // Open Graph tags for social sharing
     { property: "og:title", content: "은성이 돌잔치" },
     { property: "og:description", content: "은성이 돌잔치 RSVP" },
-    { property: "og:image", content: "/img/thumbnail.png" },
+    { property: "og:image", content: "https://elliot-rsvp.vercel.app/img/thumbnail.png" },
+    { property: "og:url", content: "https://elliot-rsvp.vercel.app/" },
     { property: "og:type", content: "website" },
   ];
 }
