@@ -19,13 +19,7 @@ export function meta({ }: Route.MetaArgs) {
     { property: "og:title", content: "은성이 돌잔치" },
     { property: "og:description", content: "은성이 돌잔치 RSVP" },
     { property: "og:image", content: "/img/thumbnail.png" },
-    { property: "og:url", content: window.location.origin },
     { property: "og:type", content: "website" },
-    // Twitter Card tags (optional, for Twitter sharing)
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:title", content: "은성이 돌잔치" },
-    { name: "twitter:description", content: "은성이 돌잔치 RSVP" },
-    { name: "twitter:image", content: "/img/thumbnail.png" },
   ];
 }
 
