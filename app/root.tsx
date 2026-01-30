@@ -10,22 +10,25 @@ import {
 import type { Route } from "./+types/root";
 import AuthGate from "./components/AuthGate";
 import "./app.css";
-import { p } from "framer-motion/client";
 
 export function meta({ }: Route.MetaArgs) {
+  const BASE_URL = import.meta.env.VITE_VERCEL_URL;
   return [
     { title: "은성이 돌잔치" },
     { name: "description", content: "은성이 돌잔치 RSVP" },
     // Open Graph tags for social sharing
-    { property: "og:title", content: "은성이 돌잔치" },
-    { property: "og:description", content: "은성이 돌잔치 RSVP" },
-    { property: "og:image", content: "https://elliot-rsvp.vercel.app/img/thumbnail.png" },
-    { property: "og:url", content: "https://elliot-rsvp.vercel.app/" },
+    { property: "og:title", content: "은성이 돌잔치 RSVP" },
+    { property: "og:description", content: "은성이의 돌잔치에 여러분을 초대합니다" },
+    { property: "og:image", content: `${BASE_URL}/img/thumbnail.png` },
+    { property: "og:url", content: `${BASE_URL}` },
     { property: "og:type", content: "website" },
+    { property: "og:width", content: "846" },
+    { property: "og:height", content: "791" },
   ];
 }
 
 export const links: Route.LinksFunction = () => [
+  { rel: "icon", href: "/favicon.png" },
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
   {
     rel: "preconnect",
