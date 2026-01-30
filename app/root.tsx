@@ -21,9 +21,7 @@ export function meta({ }: Route.MetaArgs) {
     { property: "og:description", content: "은성이의 돌잔치에 여러분을 초대합니다" },
     { property: "og:image", content: `${BASE_URL}/img/thumbnail.png` },
     { property: "og:url", content: `${BASE_URL}` },
-    { property: "og:type", content: "website" },
-    { property: "og:width", content: "846" },
-    { property: "og:height", content: "791" },
+    { property: "og:type", content: "website" }
   ];
 }
 
