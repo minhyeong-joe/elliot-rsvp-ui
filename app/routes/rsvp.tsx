@@ -1,8 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router";
 import { useForm } from "react-hook-form";
 
 import FloralDivider from "~/components/Divider";
+import { api } from "~/lib/api";
 
 import "~/styles/rsvp.css";
 
@@ -23,6 +24,9 @@ export default function RSVP() {
     const isAttendingValue = watch("isAttending");
     const hasChildrenValue = watch("hasChildren");
     const hasAllergiesValue = watch("hasAllergies");
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitError, setSubmitError] = useState<string | null>(null);
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
 
     useEffect(() => {
         if (isAttendingValue !== "true") {
@@ -48,7 +52,10 @@ export default function RSVP() {
         }
     }, [hasAllergiesValue, resetField]);
 
-    const onSubmit = (data: RSVPFormValues) => {
+    const onSubmit = async (data: RSVPFormValues) => {
+        setIsSubmitting(true);
+        setSubmitError(null);
+
         const payload = {
             name: data.name.trim(),
             isAttending: data.isAttending === "true",
@@ -61,11 +68,44 @@ export default function RSVP() {
             guess: data.guess || "",
         };
 
-        console.log("Form Submitted:", payload);
+        // console.log("Form Submitted:", payload);
+
+        try {
+            await api.post("/rsvp", payload);
+            setShowSuccessModal(true);
+        } catch (error) {
+            setSubmitError("Failed to submit RSVP. Please try again.");
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     return (
         <main>
+            {showSuccessModal && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+                    <div className="bg-white rounded-lg p-8 max-w-md w-full shadow-2xl">
+                        <div className="text-center">
+                            <div className="text-6xl mb-4">✅</div>
+                            <h2 className="text-3xl font-bold text-formal mb-4">감사합니다!</h2>
+                            <p className="text-xl text-formal mb-6">
+                                RSVP가 성공적으로 제출되었습니다
+                            </p>
+                            <FloralDivider />
+                            <div className="text-lg text-gray-700 my-6 space-y-2">
+                                <p className="font-semibold">은성이의 돌잔치</p>
+                                <p>곧 뵙겠습니다! 🎉</p>
+                            </div>
+                            <NavLink 
+                                to="/" 
+                                className="inline-block bg-cyan-500 text-white px-8 py-3 rounded-3xl hover:bg-indigo-600 transition duration-300 font-semibold text-playful text-xl"
+                            >
+                                홈으로 돌아가기
+                            </NavLink>
+                        </div>
+                    </div>
+                </div>
+            )}
             <div className="container mx-auto py-8 px-4">
                 <form onSubmit={handleSubmit(onSubmit)} className="rsvp-form container mx-auto p-4 my-8 bg-white rounded-lg shadow-md">
                     <h2 className="text-5xl lg:text-6xl text-center text-formal">RSVP</h2>
@@ -76,6 +116,7 @@ export default function RSVP() {
                         <input
                             type="text"
                             id="name"
+                            autoComplete="name"
                             className="p-1 w-30 sm:w-60 border-0 border-b border-gray-300 rounded-none bg-transparent focus:outline-none focus:ring-0 focus:border-indigo-500 text-formal text-2xl"
                             {...register("name", { required: true })}
                         />
@@ -85,7 +126,7 @@ export default function RSVP() {
                     </div>
 
                     <div className="form-group mb-6">
-                        <label htmlFor="isAttending" className="text-2xl font-medium p-1 mb-2 text-formal">돌잔치에 참석 하시나요?<span className="text-red-500 text-sm align-top">*</span></label>
+                        <label className="text-2xl font-medium p-1 mb-2 text-formal">돌잔치에 참석 하시나요?<span className="text-red-500 text-sm align-top">*</span></label>
                         {errors.isAttending?.type === "required" && (
                             <p className="text-red-500 text-sm mt-1">참석 여부를 선택해 주세요.</p>
                         )}
@@ -115,7 +156,7 @@ export default function RSVP() {
                         <>
                             {/* only show and require below if attending yes is selected */}
                             <div className="form-group mb-6">
-                                <label htmlFor="hasChildren" className="text-2xl font-medium p-1 mb-2 text-formal">만 5세 이하 자녀를 동반하시나요?<span className="text-red-500 text-sm align-top">*</span></label>
+                                <label className="text-2xl font-medium p-1 mb-2 text-formal">만 5세 이하 자녀를 동반하시나요?<span className="text-red-500 text-sm align-top">*</span></label>
                                 <label className="text-sm text-gray-600">(자녀 동반 시 별도의 어린이 식사가 제공됩니다)</label>
                                 {errors.hasChildren?.type === "required" && (
                                     <p className="text-red-500 text-sm mt-1">자녀 동반 여부를 선택해 주세요.</p>
@@ -159,7 +200,7 @@ export default function RSVP() {
                             )}
 
                             <div className="form-group mb-6">
-                                <label htmlFor="hasAllergies" className="text-2xl font-medium p-1 mb-2 text-formal">음식 알레르기가 있으신가요?<span className="text-red-500 text-sm align-top">*</span></label>
+                                <label className="text-2xl font-medium p-1 mb-2 text-formal">음식 알레르기가 있으신가요?<span className="text-red-500 text-sm align-top">*</span></label>
                                 {errors.hasAllergies?.type === "required" && (
                                     <p className="text-red-500 text-sm mt-1">알레르기 여부를 선택해 주세요.</p>
                                 )}
@@ -237,11 +278,18 @@ export default function RSVP() {
                     <FloralDivider />
                     
                     <div className="flex flex-col items-center justify-center gap-4 mt-8 sm:block">
-                        <input type="submit" className="bg-cyan-500 text-white px-8 py-3 rounded-3xl hover:bg-indigo-600 transition duration-300 font-semibold text-playful text-xl cursor-pointer" value="작성 완료" />
-                        <NavLink to="/" className="sm:ml-4 bg-gray-300 text-gray-700 px-6 py-3 sm:py-4 rounded-3xl hover:bg-gray-400 transition duration-300 font-semibold text-playful text-xl">
-                            돌아가기
-                        </NavLink>
+                        {!isSubmitting && 
+                        <>
+                            <input type="submit" className="bg-cyan-500 text-white px-8 py-3 rounded-3xl hover:bg-indigo-600 transition duration-300 font-semibold text-playful text-xl cursor-pointer" value="작성 완료" />
+                            <NavLink to="/" className="sm:ml-4 bg-gray-300 text-gray-700 px-6 py-3 sm:py-4 rounded-3xl hover:bg-gray-400 transition duration-300 font-semibold text-playful text-xl">
+                                돌아가기
+                            </NavLink>
+                        </>}
+                        {isSubmitting && <img src='loader.gif' alt='Submitting...' className="mt-4" />}
                     </div>
+                    {submitError && (
+                        <p className="text-red-500 text-center mt-4">{submitError}</p>
+                    )}
                 </form>
             </div>
 

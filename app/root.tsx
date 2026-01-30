@@ -6,9 +6,11 @@ import {
   Scripts,
   ScrollRestoration,
 } from "react-router";
+import { useEffect } from "react";
 
 import type { Route } from "./+types/root";
 import AuthGate from "./components/AuthGate";
+import { api } from "./lib/api";
 import "./app.css";
 
 export function meta({ }: Route.MetaArgs) {
@@ -63,6 +65,21 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   const validCode = import.meta.env.VITE_KEY;
+  
+  // Prewarm backend service to avoid cold start delays
+  useEffect(() => {
+    const prewarmService = async () => {
+      try {
+        await api.get('/health');
+      } catch (error) {
+        // Silently fail - prewarming is non-critical
+        console.debug('Service prewarm failed:', error);
+      }
+    };
+    
+    prewarmService();
+  }, []);
+  
   return (
     <AuthGate validCode={validCode}>
       <Outlet />
