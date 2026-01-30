@@ -13,8 +13,19 @@ import "./app.css";
 
 export function meta({ }: Route.MetaArgs) {
   return [
-    { title: "Elliot RSVP" },
-    { name: "description", content: "RSVP for Elliot's First Birthday" },
+    { title: "은성이 돌잔치" },
+    { name: "description", content: "은성이 돌잔치 RSVP" },
+    // Open Graph tags for social sharing
+    { property: "og:title", content: "은성이 돌잔치" },
+    { property: "og:description", content: "은성이 돌잔치 RSVP" },
+    { property: "og:image", content: "/img/thumbnail.png" },
+    { property: "og:url", content: window.location.origin },
+    { property: "og:type", content: "website" },
+    // Twitter Card tags (optional, for Twitter sharing)
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:title", content: "은성이 돌잔치" },
+    { name: "twitter:description", content: "은성이 돌잔치 RSVP" },
+    { name: "twitter:image", content: "/img/thumbnail.png" },
   ];
 }
 
