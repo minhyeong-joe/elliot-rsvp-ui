@@ -20,10 +20,10 @@ export default function Home() {
         </div>
 
         <div className="info text-center mb-12">
-          <p className="mb-2 text-playful text-xl lg:text-2xl"><b>일시:</b> 2026.05.02 12:00 PM - 1:30 PM</p>
+          <p className="mb-2 text-playful text-xl lg:text-2xl"><b>일시:</b> 2026.05.02 12:00 PM - 2:00 PM</p>
           <div className="flex justify-center">
             <div className="text-left">
-              <p className="mb-2 text-playful text-xl lg:text-2xl"><b>장소:</b> dPlace Steak & Pasta</p>
+              <p className="mb-2 text-playful text-xl lg:text-2xl"><b>장소:</b> <a href='https://maps.app.goo.gl/9cHipeEnLsHJNsMN9' target='_blank' rel="noopener noreferrer">dPlace Steak & Pasta</a></p>
               <p className="mb-1 text-playful text-xl lg:text-2xl ml-10 lg:ml-14">1901 W Malvern Ave.</p>
               <p className="mb-1 text-playful text-xl lg:text-2xl ml-10 lg:ml-14">Fullerton, CA 92833</p>
             </div>
@@ -34,10 +34,10 @@ export default function Home() {
           <NavLink to="/rsvp" className="bg-cyan-500 text-white px-12 py-3 rounded-3xl hover:bg-indigo-600 transition duration-300 text-playful text-2xl lg:text-3xl">
             RSVP
           </NavLink>
-          <p className="mt-5 text-sm text-gray-600">
+          <p className="mt-5 text-sm text-gray-700">
             참석 여부를 알려주시면 준비에 큰 도움이 됩니다!
           </p>
-          <p className="mt-1 text-sm text-gray-600">
+          <p className="mt-1 text-sm text-gray-700">
             [응답 마감일: 2월 28일]
           </p>
         </div>

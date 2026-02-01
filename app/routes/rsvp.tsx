@@ -20,10 +20,12 @@ type RSVPFormValues = {
 };
 
 export default function RSVP() {
-    const { register, formState: { errors }, handleSubmit, watch, resetField } = useForm<RSVPFormValues>();
+    const { register, formState: { errors }, handleSubmit, watch, resetField } = useForm<RSVPFormValues>({ mode: 'onChange' });
     const isAttendingValue = watch("isAttending");
     const hasChildrenValue = watch("hasChildren");
     const hasAllergiesValue = watch("hasAllergies");
+    const allergyDetailsValue = watch("allergyDetails");
+    const messageValue = watch("message");
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitError, setSubmitError] = useState<string | null>(null);
     const [showSuccessModal, setShowSuccessModal] = useState(false);
@@ -96,8 +98,8 @@ export default function RSVP() {
                                 <p className="font-semibold">은성이의 돌잔치</p>
                                 <p>곧 뵙겠습니다! 🎉</p>
                             </div>
-                            <NavLink 
-                                to="/" 
+                            <NavLink
+                                to="/"
                                 className="inline-block bg-cyan-500 text-white px-8 py-3 rounded-3xl hover:bg-indigo-600 transition duration-300 font-semibold text-playful text-xl"
                             >
                                 홈으로 돌아가기
@@ -191,11 +193,19 @@ export default function RSVP() {
                                         type="number"
                                         id="numChildren"
                                         min="0"
+                                        max="9"
+                                        step="1"
                                         defaultValue="0"
-                                        className="p-1 w-8 border-0 border-b border-gray-300 rounded-none bg-transparent focus:outline-none focus:ring-0 focus:border-indigo-500 text-formal text-2xl"
-                                        {...register("numChildren", { required: true, min: 0 })}
+                                        className="p-1 w-12 border-0 border-b border-gray-300 rounded-none bg-transparent focus:outline-none focus:ring-0 focus:border-indigo-500 text-formal text-2xl"
+                                        {...register("numChildren", { required: true, min: 0, max: 9, valueAsNumber: true })}
                                     />
                                     <label htmlFor="numChildren" className="text-formal text-2xl">명</label>
+                                    {errors.numChildren?.type === "required" && (
+                                        <p className="text-red-500 text-sm mt-1">자녀 수를 입력해 주세요.</p>
+                                    )}
+                                    {(errors.numChildren?.type === "min" || errors.numChildren?.type === "max") && (
+                                        <p className="text-red-500 text-sm mt-1">0에서 9 사이의 숫자를 입력해 주세요.</p>
+                                    )}
                                 </div>
                             )}
 
@@ -236,11 +246,12 @@ export default function RSVP() {
                                     <textarea
                                         id="allergyDetails"
                                         rows={2}
-                                        maxLength={200}
+                                        maxLength={100}
                                         className="p-2 w-full border border-gray-300 rounded-lg bg-transparent focus:outline-none focus:ring-0 focus:border-indigo-500 text-formal text-2xl"
                                         placeholder="알레르기 정보를 기재해 주세요. 예: 땅콩, 글루텐 등"
                                         {...register("allergyDetails", { required: true })}
                                     ></textarea>
+                                    <p className="text-sm text-gray-500 text-right mt-1">{allergyDetailsValue?.length || 0}/100</p>
                                 </div>
                             )}
 
@@ -249,11 +260,12 @@ export default function RSVP() {
                                 <textarea
                                     id="message"
                                     rows={2}
-                                    maxLength={200}
+                                    maxLength={100}
                                     className="p-2 w-full border border-gray-300 rounded-lg bg-transparent focus:outline-none focus:ring-0 focus:border-indigo-500 text-formal text-2xl"
                                     placeholder="형식적인 축하인사보다 훗날 은성이가 읽을 개성 있고 따뜻한 한마디를 남겨주세요"
                                     {...register("message")}
                                 ></textarea>
+                                <p className="text-sm text-gray-500 text-right mt-1">{messageValue?.length || 0}/100</p>
                                 <input type="checkbox" id="anonymous" className="mt-2 mr-2 cursor-pointer" {...register("anonymous")} />
                                 <label htmlFor="anonymous" className="text-formal text-2xl cursor-pointer">익명으로 남기기</label>
                             </div>
@@ -276,9 +288,9 @@ export default function RSVP() {
                     )}
 
                     <FloralDivider />
-                    
+
                     <div className="flex flex-col items-center justify-center gap-4 mt-8 sm:block">
-                        {!isSubmitting && 
+                        {!isSubmitting &&
                         <>
                             <input type="submit" className="bg-cyan-500 text-white px-8 py-3 rounded-3xl hover:bg-indigo-600 transition duration-300 font-semibold text-playful text-xl cursor-pointer" value="작성 완료" />
                             <NavLink to="/" className="sm:ml-4 bg-gray-300 text-gray-700 px-6 py-3 sm:py-4 rounded-3xl hover:bg-gray-400 transition duration-300 font-semibold text-playful text-xl">
