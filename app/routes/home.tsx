@@ -16,7 +16,7 @@ export default function Home() {
 
         <div className="frame-container mx-auto mb-12">
           <div className="frame-border"></div>
-          <img src="/img/temp.jpg" alt="Baby photo" />
+          <img src="/img/main.jpg" alt="Baby photo" />
         </div>
 
         <div className="info text-center mb-12">
